@@ -16,11 +16,13 @@ password_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__r
 
 
 async def create_token() -> str:
+    """Create and return a JWT token"""
     to_encode = {"can_use": True}
     return jwt.encode(to_encode, SECRET_KEY, ALGORITHM)
 
 
 async def check_token(access_token: Annotated[str, Depends(cookie_apikey)]) -> None:
+    """Check JWT token"""
     if access_token is None:
         raise TokenNotFoundError()
 

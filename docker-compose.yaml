@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  botfarm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: botfarm
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    env_file:
+      - ./.docker.env
+
+  database:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: database

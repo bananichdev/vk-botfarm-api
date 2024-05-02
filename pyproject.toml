@@ -2,7 +2,7 @@
 name = "vk-botfarm-service"
 version = "0.1.0"
 description = "Тестовое задание на стажировку в VK - сервис ботофермы VK"
-authors = ["Дмитрий Панин <dimitri-05@mail.ru>"]
+authors = ["Dmitriy Panin <dimitri-05@mail.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

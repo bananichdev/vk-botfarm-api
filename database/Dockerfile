@@ -1,8 +1,8 @@
 FROM postgres:alpine
-LABEL authors="Дмитрий Панин"
+LABEL authors="Dmitriy Panin"
 
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=postgres
+ENV POSTGRES_USER=admin
+ENV POSTGRES_PASSWORD=admin_password
 
 COPY ./setup_db.sh /docker-entrypoint-initdb.d/
 

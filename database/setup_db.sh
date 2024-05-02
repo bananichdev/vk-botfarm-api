@@ -1,6 +1,6 @@
 #!/bin/bash
 
-psql -U postgres <<-EOSQL
+psql -U admin <<-EOSQL
     CREATE DATABASE "botfarm";
     CREATE DATABASE "botfarm-test";
 EOSQL

@@ -20,6 +20,7 @@ async def get_user_by_id(
     db_sessionmaker: async_sessionmaker,
     id: UUID,
 ) -> User:
+    """Returns user if it exists, else raise an exception UserNotFoundError"""
     try:
         async with db_sessionmaker.begin() as session:
             if (
@@ -35,6 +36,7 @@ async def get_user_by_id(
 async def get_users_list(
     db_sessionmaker: async_sessionmaker,
 ) -> list[User]:
+    """Return a list of all users"""
     try:
         async with db_sessionmaker.begin() as session:
             user_entities_list = await session.scalars(select(UserModel))
@@ -48,6 +50,7 @@ async def create_user(
     db_sessionmaker: async_sessionmaker,
     user_data: UserCreatingData,
 ) -> User:
+    """Create and return a new user"""
     try:
         async with db_sessionmaker.begin() as session:
             password = password_context.hash(user_data.password)
@@ -67,6 +70,8 @@ async def lock_user(
     db_sessionmaker: async_sessionmaker,
     id: UUID,
 ) -> UserOperationOk:
+    """Lock user and return user id if it exists and not locked, else raise an exception UserNotFoundError or
+    UserAlreadyLockedError"""
     user = await get_user_by_id(db_sessionmaker=db_sessionmaker, id=id)
     if user.locktime is not None:
         raise UserAlreadyLockedError(id=id)
@@ -87,6 +92,7 @@ async def unlock_user(
     db_sessionmaker: async_sessionmaker,
     id: UUID,
 ) -> UserOperationOk:
+    """Unlock user and return user id if it exists, else raise an exception UserNotFoundError"""
     await get_user_by_id(db_sessionmaker=db_sessionmaker, id=id)
 
     try:
