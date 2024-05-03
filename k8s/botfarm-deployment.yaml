@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: botfarm-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: botfarm
+    spec:
+      containers:
+        - name: vk-botfarm-api-botfarm
+          image: vk-botfarm-api-botfarm:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_USER
+              value: "admin"
+            - name: DB_PASS
+              value: "admin_password"
+            - name: DB_URL
+              value: "database-statefulset-0.database-service.default.svc.cluster.local"
+            - name: DB_NAME
+              value: "botfarm"
+            - name: TEST_DB_NAME
+              value: "botfarm-test"
+            - name: ENV
+              value: "stage"
+            - name: ALGORITHM
+              value: "HS256"
+            - name: HASH_ROUNDS
+              value: "5"
+            - name: SECRET_KEY
+              value: "f502b8d9e9559f34894c0676ef117a9147da372ed3160d4f020f53329da17717"
+  selector:
+    matchLabels:
+      app: botfarm
