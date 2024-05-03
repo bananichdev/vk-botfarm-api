@@ -21,32 +21,10 @@ docker compose stop
 <b>Должен быть установлен kubectl и minikube</b><br>
 
 ```shell
-minikube start
+bash start.sh
 ```
-```shell
-eval $(minikube docker-env)
-docker build -t vk-botfarm-api-botfarm:latest .
-docker build -t vk-botfarm-api-database:latest ./database/
-```
-```shell
-kubectl apply -f ./k8s/database-statefulset.yaml
-```
-```shell
-kubectl apply -f ./k8s/database-service.yaml
-```
-```shell
-kubectl apply -f ./k8s/botfarm-deployment.yaml
-```
-```shell
-kubectl port-forward <pod-name> 8000:8000
-```
-Чтобы получить <pod-name>, напишите:
-```shell
-kubectl get pods
-```
-и скопируйте название пода, начинающегося с botfarm-deployment
 
 Остановить сервис:
 ```shell
-minikube stop
+bash stop.sh
 ```
